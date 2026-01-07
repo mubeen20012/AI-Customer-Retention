@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Customer Retention Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ================= HEADER ================= -->
+    <header>
+        <h1>AI Customer Retention & Revenue Intelligence</h1>
+        <p>Predict churn, revenue, customer segments & take smart actions</p>
+    </header>
+
+    <!-- ================= EXECUTIVE SUMMARY ================= -->
+    {% if total_revenue_risk %}
+    <section class="cards executive-cards">
+        <div class="card metric-card">
+            💰 <h3>Revenue at Risk</h3>
+            <p>${{ total_revenue_risk }}</p>
+        </div>
+
+        <div class="card metric-card">
+            ⚠ <h3>Average Churn Risk</h3>
+            <p>{{ avg_churn }}%</p>
+        </div>
+
+        <div class="card metric-card">
+            🎯 <h3>Retention Opportunity</h3>
+            <p>${{ retention_value }}</p>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ================= CSV UPLOAD ================= -->
+    <section class="card upload-card">
+        <h2>📂 Upload Customer CSV</h2>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Upload & Analyze</button>
+        </form>
+    </section>   
+
+    <!-- ================= MANUAL INPUT ================= -->
+    <section class="card">
+        <h2>✍️ Manual Customer Prediction</h2>
+        <form action="/manual_predict" method="post" class="manual-form">
+
+            <div class="form-group">
+                <label>Monthly Charges</label>
+                <input type="number" step="0.01" name="MonthlyCharges" required>
+            </div>
+
+            <div class="form-group">
+                <label>Total Charges</label>
+                <input type="number" step="0.01" name="TotalCharges" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tenure (Months)</label>
+                <input type="number" name="tenure" required>
+            </div>
+
+            <div class="form-group">
+                <label>Senior Citizen</label>
+                <select name="SeniorCitizen">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Fiber Optic Internet</label>
+                <select name="FiberOptic">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Two Year Contract</label>
+                <select name="TwoYearContract">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <button type="submit">Predict Customer</button>
+        </form>
+    </section>
+
+    <!-- ================= MANUAL RESULT ================= -->
+    {% if manual_result %}
+    <section class="card result-card">
+        <h2>📊 Manual Prediction Result</h2>
+        <ul>
+            <li><strong>Churn:</strong> {{ manual_result.Churn }}</li>
+            <li><strong>Predicted Revenue:</strong> ${{ manual_result.Revenue }}</li>
+            <li><strong>Customer Cluster:</strong> {{ manual_result.Cluster }}</li>
+            <li><strong>Recommendation:</strong> {{ manual_result.Recommendation }}</li>
+        </ul>
+
+        <!-- Show Visuals Button -->
+        <button class="toggle-btn" onclick="toggleSection('manual-visuals')">📈 Show Visuals</button>
+
+        <!-- Collapsible Visuals -->
+        <div id="manual-visuals" class="collapsible-section" style="display:none; margin-top:20px;">
+            {% if shap_plot %}
+            <h3>🧠 SHAP Explainability</h3>
+            <img src="data:image/png;base64,{{ shap_plot }}" class="plot-img">
+            {% endif %}
+            {% if pca_plot %}
+            <h3>🧩 PCA / Customer Segmentation</h3>
+            <img src="data:image/png;base64,{{ pca_plot }}" class="plot-img">
+            {% endif %}
+            {% if metrics %}
+            <h3>🩺 Model Health</h3>
+            <ul class="metrics-list">
+                {% for k,v in metrics.items() %}
+                <li><strong>{{ k }}:</strong> {{ v }}</li>
+                {% endfor %}
+            </ul>
+            {% if cm_plot %}
+            <img src="data:image/png;base64,{{ cm_plot }}" class="plot-img">
+            {% endif %}
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ================= MODEL HEALTH MESSAGE ================= -->
+    {% if model_health_message %}
+    <section class="card alert-card">
+        <h2>🩺 Model Health & Transparency</h2>
+        <p>{{ model_health_message }}</p>
+    </section>
+    {% endif %}
+
+    <!-- ================= BATCH RESULTS ================= -->
+    {% if table %}
+    <section class="card">
+        <h2>📈 Batch Predictions</h2>
+        <div class="table-container">
+            {{ table|safe }}
+        </div>
+        <a href="/download" class="download-btn">⬇ Download CSV</a>
+
+        <!-- Show Visuals Button -->
+        <button class="toggle-btn" onclick="toggleSection('batch-visuals')">📊 Show Visuals</button>
+
+        <!-- Collapsible Visuals -->
+        <div id="batch-visuals" class="collapsible-section" style="display:none; margin-top:20px;">
+            {% if shap_plot %}
+            <h3>🧠 SHAP Explainability</h3>
+            <img src="data:image/png;base64,{{ shap_plot }}" class="plot-img">
+            {% endif %}
+            {% if pca_plot %}
+            <h3>🧩 PCA / Customer Segmentation</h3>
+            <img src="data:image/png;base64,{{ pca_plot }}" class="plot-img">
+            {% endif %}
+            {% if metrics %}
+            <h3>🩺 Model Health</h3>
+            <ul class="metrics-list">
+                {% for k,v in metrics.items() %}
+                <li><strong>{{ k }}:</strong> {{ v }}</li>
+                {% endfor %}
+            </ul>
+            {% if cm_plot %}
+            <img src="data:image/png;base64,{{ cm_plot }}" class="plot-img">
+            {% endif %}
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+</div>
+
+<footer>
+    <p>Built with ❤️ using ML, SHAP, Clustering & Flask</p>
+</footer>
+
+<!-- ================= TOGGLE JS ================= -->
+<script>
+function toggleSection(id) {
+    var section = document.getElementById(id);
+    if(section.style.display === "none") {
+        section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>

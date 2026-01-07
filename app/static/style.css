@@ -1,0 +1,223 @@
+/* ================= GLOBAL ================= */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+}
+
+/* ================= HEADER ================= */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #cfd8dc;
+    font-size: 16px;
+}
+
+/* ================= EXECUTIVE CARDS ================= */
+.cards {
+    display: flex;
+    gap: 20px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.metric-card {
+    flex: 1;
+    min-width: 220px;
+    text-align: center;
+}
+
+.metric-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #00e5ff;
+}
+
+.metric-card p {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* ================= CARD ================= */
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    animation: fadeIn 0.7s ease-in;
+}
+
+.card h2 {
+    margin-bottom: 15px;
+    border-left: 5px solid #00e5ff;
+    padding-left: 12px;
+}
+
+/* ================= UPLOAD ================= */
+.upload-card input[type="file"] {
+    padding: 12px;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* ================= BUTTONS ================= */
+button,
+.download-btn {
+    background: #00e5ff;
+    color: #000;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover,
+.download-btn:hover {
+    background: #00bcd4;
+    transform: scale(1.05);
+}
+
+/* ================= MANUAL FORM ================= */
+.manual-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* ================= RESULT ================= */
+.result-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.result-card li {
+    padding: 8px 0;
+    font-size: 16px;
+}
+
+/* ================= TABLE ================= */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    color: #000;
+    border-radius: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: #00bcd4;
+    color: #ffffff;
+}
+
+/* ================= METRICS LIST ================= */
+.metrics-list {
+    list-style: none;
+    padding: 0;
+}
+
+.metrics-list li {
+    padding: 6px 0;
+    font-size: 15px;
+}
+
+/* ================= IMAGES ================= */
+.plot-img {
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 15px;
+    background: #ffffff;
+    padding: 10px;
+}
+
+/* ================= FOOTER ================= */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    color: #cfd8dc;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= Toggle Visuals Button ================= */
+.toggle-btn {
+    background: #ff9800;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.toggle-btn:hover {
+    background: #fb8c00;
+    transform: scale(1.05);
+}
+
+/* Collapsible Section */
+.collapsible-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}

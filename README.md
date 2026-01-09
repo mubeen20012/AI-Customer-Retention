@@ -85,7 +85,7 @@ The system automatically generates recommendations based on model outputs:
 ## 👩‍💻 Author
 **Musfira Mubeen** *Aspiring AI/ML Engineer & Data Scientist*
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/YOUR_LINKEDIN_HERE)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/musfira-mubeen/)
 [![Portfolio](https://img.shields.io/badge/Portfolio-View-green?style=flat&logo=github)](https://github.com/YOUR_GITHUB_USERNAME)
 
 ⭐ *If you find this project useful for your business or portfolio, feel free to star the repository!*
